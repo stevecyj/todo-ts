@@ -22,6 +22,7 @@ form?.addEventListener('submit', (e) => {
     createAt: new Date(),
   };
   addItemToList(newTask);
+  input.value = '';
 });
 
 const addItemToList = (task: Task) => {
@@ -29,6 +30,12 @@ const addItemToList = (task: Task) => {
   const label = document.createElement('label');
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
+
+  checkbox.addEventListener('change', (e) => {
+    task.completed = checkbox.checked;
+    if (checkbox.checked) label.style.textDecoration = 'line-through';
+    else label.style.textDecoration = 'none';
+  });
 
   label.append(checkbox, task.title);
   item.append(label);
